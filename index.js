@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const path = require("path");
+const cookieParser = require("cookie-parser");
 const apiRoute = require("./routes/api.route");
 const staticRoute = require("./routes/static.route");
 const { connectToMongoDB } = require("./utils/connect");
@@ -16,8 +17,10 @@ connectToMongoDB(process.env.DB_URL)
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
 
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 app.use("/api", apiRoute);
 app.use("/", staticRoute);
 

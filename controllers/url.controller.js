@@ -8,6 +8,7 @@ async function handleGenerateNewShortURL(req, res) {
     shortId: shortId,
     redirectURL: body.url,
     visitedHistory: [],
+    createdBy: req.user._id,
   });
   return res.render("home", { id: shortId });
   // return res.json({ id: shortId });
@@ -30,6 +31,7 @@ async function handleRedirectURL(req, res) {
     return res
       .status(404)
       .json({ msg: "url doesn't exist, try creating another one" });
+  // console.log(entry.redirectURL);
   return res.redirect(entry.redirectURL);
 }
 async function handleGetURLAnalytics(req, res) {
